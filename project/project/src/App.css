@@ -1,0 +1,173 @@
+.App {
+  min-width: 1100px;
+  max-width: 2200px;
+}
+
+.category {
+  width: 20%;
+  float: left;
+  padding: 20px;
+  border: 1px slategray solid;
+  height: 21px;
+
+}
+
+.component {
+  height: 21px;
+  overflow: auto;
+  width: 30%;
+  float: left;
+  padding: 20px;
+  border: 1px slategray solid
+}
+
+.complexity {
+  height: 21px;
+  width: 20%;
+  float: left;
+  padding: 20px;
+  border: 1px slategray solid
+}
+
+.line {
+  width: 100%;
+  text-align: center;
+}
+
+.option {
+  font-size: 15px;
+}
+
+.select {
+  padding: 10px;
+  display: inline-flex;
+  font-size: 15px;
+  width: 20%;
+  margin: 5px;  
+}
+
+.btn {
+  padding: 10px;
+  font-size: 15px;
+  margin: 10px;
+}
+
+#createNewLineSubmit {
+  float: left;
+}
+
+.addInput {
+  font-size: 25px;
+  padding: 15px;
+  margin-right: 10px;
+}
+
+#low {
+  float: left;
+  width: 4.8%;
+  padding: 20px;
+  height: 21px;
+  border: 1px slategray solid;
+}
+
+#med {
+  float: left;
+  width: 4%;
+  padding: 20px;
+  height: 21px;
+  border: 1px slategray solid;
+}
+
+#high {
+  float: left;
+  width: 6.8%;
+  padding: 20px;
+  height: 21px;
+  border: 1px slategray solid;
+}
+
+
+.dltBtn {
+  width: 8%;
+  float: left;
+  border: 1px slategray solid;
+  height: 63px;
+  padding: 20px;
+}
+
+.complexityInput {
+  width: 20%;
+  text-align: center;
+}
+
+#lowInput {
+  width: 20%;
+  text-align: center;
+  display: inline-flex;
+}
+
+#medInput {
+  width: 20%;
+  text-align: center;
+  display: inline-flex;
+}
+
+#highInput {
+  width: 20%;
+  text-align: center;
+  display: inline-flex;
+}
+
+.SaveBtn {
+  width: 10%;
+  float: left;
+  border: 1px slategray solid;
+  height: 63px;
+  padding: 20px;
+}
+
+.complexityHeader {
+  height: 21px;
+  width: 20%;
+  float: left;
+  padding-top: 5px;
+  padding-bottom: 35px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border: 1px slategray solid;
+  background-color: darkkhaki;
+}
+
+.complexityHeaders {
+  padding-bottom: 5px;
+}
+
+#lineHeader {
+  font-weight: bold;
+  height: 62px;  
+  text-align: center;
+}
+#categoryHeader{
+    background-color: darkkhaki;
+}
+
+#componentHeader{
+  background-color: darkkhaki;
+}
+
+.break{
+  margin: 1px;
+}
+
+.selectBlock{
+  width: 100%;
+
+}
+
+.selectComment{
+  padding-top: 12px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  width: 120px;
+  float: left;
+}

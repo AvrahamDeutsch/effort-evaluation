@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+
+	<script>
+		var id = '5bc34b921f81c00144eb5f3c';
+		var jsonNewLine = {
+			id : '5bbb4ba7074da435645a88b8',
+			category : "TEST",
+			component : "TEST",
+			low_complexity : 1,
+			med_complexity : 1,
+			high_complexity : 1
+		}
+ 
+		axios.all([axios1(), axios2(),axios3(), axiosCreateNew(jsonNewLine.category, jsonNewLine.component, jsonNewLine.low_complexity, jsonNewLine.med_complexity, jsonNewLine.high_complexity)
+	    , axiosEdit(jsonNewLine.id, jsonNewLine.category, jsonNewLine.component, jsonNewLine.low_complexity, jsonNewLine.med_complexity, jsonNewLine.high_complexity), axiosDelete(id)]).then();
+		
+
+		function axios1() {
+			return axios.get('/app')
+				.then(function (response) {
+					console.log(response.data);
+				})
+				.catch(function (error) {
+					console.log(error);
+				});
+		}
+
+
+		function axios2() {
+			return axios.get('/app/find_category/?category=web')
+				.then(function (response) {
+					console.log(response.data);
+				})
+				.catch(function (error) {
+					console.log(error);
+				});
+		}
+
+
+		function axios3() {
+			return axios.get('/app/find_component/?component=Build Chat room')
+				.then(function (response) {
+					console.log(response.data);
+				})
+				.catch(function (error) {
+					console.log(error);
+				});
+		}
+
+
+		function axiosCreateNew(category, component, low_complexity, med_complexity, high_complexity) {
+			axios({
+				method: 'post',
+				url: '/app/save_to_db',
+				data:
+					{
+						category: category,
+						component: component,
+						low_complexity: low_complexity,
+						med_complexity: med_complexity,
+						high_complexity: high_complexity
+					}
+			})
+			.then(function (response) {
+					console.log(response.data);
+				})
+				.catch(function (error) {
+					console.log(error);
+				});
+		}
+
+		function axiosEdit(id, category, component, low_complexity, med_complexity, high_complexity) {
+			axios({
+				method: 'post',
+				url: '/app/edit_due_to_id',
+				data:
+					{
+						_id: id,
+						category: category,
+						component: component,
+						low_complexity: low_complexity,
+						med_complexity: med_complexity,
+						high_complexity: high_complexity
+					}
+			})
+				.then(function (response) {
+					console.log(response.data);
+				})
+				.catch(function (error) {
+					console.log(error);
+				});
+		}
+
+		function axiosDelete(id) {
+
+			axios({
+
+				method: 'delete',
+				url: '/app/delete_due_to_id',
+				data: {_id: id}
+			
+			}).then(function (response) {
+				console.log(response.data);
+			})
+				.catch(function (error) {
+					console.log(error);
+				});
+		}
+			
+		
+
+	</script>
+
+
+
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,186 @@
+.App {
+  text-align: center;
+  width: 100%;
+}
+
+.ProjectManager {
+ padding-top: 25px;
+  width: 90%;
+  margin: 5px;
+  margin: auto;
+  /* border: 1px solid black; */
+  font-size: 20px;
+}
+
+
+.TaskContainer {
+  width: 100%;
+  font-size: 20px;
+  border-top: 1px slategray solid;
+
+}
+.TaskContainerVisible{
+  width: 100%;
+  font-size: 20px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  border-top: 1px slategray solid;
+  border-left: 1px slategray solid;
+  border-right: 1px slategray solid;
+  height: 80px;
+}
+
+
+.Lines{
+  width: 100%;
+}
+
+.Line{
+  width: 100%;
+}
+
+.LineDetail{
+  width: 100%;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  /* border: 1px slategray solid; */
+  border: 3px solid gray;
+  background:rgb(164, 207, 250, 0.7);
+  margin: auto;
+}
+
+.break{
+  height: 120px;
+}
+
+.selectProject{
+    font-size: 20px;
+  padding: 20px;
+}
+
+.selectContainer{
+  text-align: left;
+  margin: 5px;
+
+}
+
+.task{
+  border: 1px solid grey;
+  width: 100%;
+  font-size: 30px;
+}
+
+.summary{
+  margin: auto;
+  
+  
+}
+
+.TaskContainerVisibleDetails{
+  width: 50%;
+}
+
+.TaskContainerVisibleText{
+  float: left;
+  margin-left: 10px;
+}
+.categoryDiv{
+  width: 30%;
+}
+.categoryLable{
+  width: 50%;
+  text-align: left;
+}
+
+.select {
+  font-size: 20px;  
+  width: 100%; 
+}
+.componentSelect{
+  width: 98%;
+  padding: 0px;
+}
+.complexityNumber{
+  float: right;
+  text-align: center;
+  height:26px;
+  /* width: 20%; */
+  margin-right: 20px;
+  /* border: 1px solid black; */
+  /* border-radius: 10px;  */
+  padding-right: 5px;
+  /* padding-left: 5px; */
+  /* background-color: burlywood; */
+}
+
+.floatLeft{
+  float: left;
+}
+
+.width{
+  width: 15%;
+}
+
+.TaskContainerLeftSize{
+  width: 80%;
+  float: left;
+}
+
+.TaskContainerRightSize{
+  width: 20%;
+  text-align: center;
+  float: left;
+  font-size: 30px;
+  height:80px;
+}
+
+.totalWorkNumber{
+  float: right;
+  height:40px;
+  width: 30%;
+  margin-right: 20px;
+  border: 1px solid black;
+  border-radius: 10px; 
+  padding-right: 5px;
+  padding-left: 5px;
+  background-color: blueviolet;
+  color: white;
+}
+
+.verticalMiddle{
+  vertical-align: 50%;   
+}
+
+.userStoryDiv{
+  width: 100%;
+}
+
+.userStoryLable{
+  width: 16.7%;
+  text-align: left;
+}
+ .taskUserStoryLable{
+  width: 30%;
+  text-align: left;
+ }
+
+  .userStorySelect{
+  width: 100%;
+ /* max-width:58.1%;*/
+}
+
+
+textarea{
+  width:98%;
+  height: 17px;
+  
+}
+
+.risk{
+  padding-right: 65px;
+}
+
+.row{
+  display: flex;
+
+}

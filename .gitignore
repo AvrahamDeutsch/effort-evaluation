@@ -1,0 +1,9 @@
+project/project/node_modules
+
+project/project/package-lock
+
+project/userstory/node_modules
+
+project/userstory/package-lock
+
+server-side/node_modules
