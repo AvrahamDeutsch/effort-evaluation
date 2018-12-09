@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios'
 import { Input} from 'reactstrap';
+import {connect} from 'react-redux'
+import store from './store/store'
 
 
 
@@ -16,7 +18,8 @@ class CategorySelect extends Component {
         };
     }
 
-    componentDidMount() {
+   componentDidMount() {
+    
         axios.get(`http://10.2.1.106:8080/app/category_value_list`)
             .then((response) => {
                 console.log(response.data);
@@ -36,15 +39,11 @@ class CategorySelect extends Component {
             });
     }
 
-    changeCategory(i){
-        this.setState({currentCategory:i})
-    }
     
     
     render() {
-        {/* <Input type="select" onChange={this.props.onChange} className='select'> */}
         return (
-            <Input type="select" onChange={(i)=>this.changeCategory(i.target.value)} className='select'>
+        <Input type="select" onChange={this.props.onChange} className='select'>
                 <option selected disabled hidden className='option'>Select Category</option>
                 {this.state.renderedData}
             </Input>
@@ -52,4 +51,5 @@ class CategorySelect extends Component {
     }
 }
 
-export default CategorySelect;
+// export default  connect(store=>store)(CategorySelect);
+export default  CategorySelect;

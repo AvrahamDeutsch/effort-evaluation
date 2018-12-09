@@ -3,7 +3,7 @@ import './App.css';
 import Lines from './lines';
 import CategorySelect from './categorySelect';
 import axios from 'axios'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import UserStorySelect from './userStorySelect';
 import { InputGroup, InputGroupAddon, InputGroupText, Button, Form, FormGroup, Label, Input, FormText, Container, Row, Col } from 'reactstrap';
 
@@ -14,6 +14,10 @@ class TaskContainer extends Component {
     constructor(props) {
         super(props)
         this.state = {
+
+            //---by ad ----//
+            currentCategory: '',
+            //-------end-------//
             arrayResult: [],
             taskContainerName: '',
             mileStoneNumber: 0,
@@ -33,6 +37,8 @@ class TaskContainer extends Component {
         };
     }
 
+
+
     taskContainerNameChange = (e) => {
         e.persist();
         var taskContainerName = e.target.value;
@@ -42,6 +48,13 @@ class TaskContainer extends Component {
     }
 
     categoryChange = (e) => {
+        // this.setState({ currentCategory: e })
+        // this.props.category.map(elm => {
+        //     if (elm.type === this.state.currentCategory) {
+        //         this.setState({ arrayResult: elm.component })
+
+        //     }
+        // })
 
 
         e.persist();
@@ -214,6 +227,15 @@ class TaskContainer extends Component {
 
 
     componentChange = (e) => {
+        // console.log('e', e);
+
+        // this.props.category.map(category => {
+        //     if (this.state.currentCategory === category.type) {
+        //         this.setState({ arrayResult: category.component })
+        //     }
+
+        // })
+
         e.persist();
         var value = e.target.value;
         console.log(value);
@@ -320,7 +342,7 @@ class TaskContainer extends Component {
                 </Row>
                 <Row>
                     <Col>
-                        {this.state.taskMode ? <Button onClick={() => (this.props.dispatch({ type: "SAVE_TASK_CONTAINER_DATA", payload: this.state}))}>Save</Button> : null}
+                        {this.state.taskMode ? <Button onClick={() => (this.props.dispatch({ type: "SAVE_TASK_CONTAINER_DATA", payload: this.state }))}>Save</Button> : null}
 
                     </Col>
                 </Row>
@@ -331,7 +353,8 @@ class TaskContainer extends Component {
         );
     }
 }
-export default connect(store => store)(TaskContainer);
+// export default connect(store => store)(TaskContainer);
+export default TaskContainer;
 
 
 {/* <div className="TaskContainer">

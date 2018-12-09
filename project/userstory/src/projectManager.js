@@ -27,14 +27,14 @@ class ProjectManager extends Component {
                 // 'Cluster leader UI', 
                 // 'Backend',
             ],
-            newProjectName: ''
+           
         }
     }
 
     componentDidMount() {
 
 
-        store.dispatch({ type: 'GET_ALL_DATA' })
+        // store.dispatch({ type: 'GET_ALL_DATA' })
 
 
 

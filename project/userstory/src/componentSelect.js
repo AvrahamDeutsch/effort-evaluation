@@ -23,10 +23,9 @@ class ComponentSelect extends Component {
 
 
     render() {
-        var key = 0;
         var array = this.props.arrayResult.slice();
-        var renderedData = array.map(current => {
-            return <option onChange={this.props.onChange} dbid={current._id} className='option' key={key++}>{current.component}</option>
+        var renderedData = array.map((current, index) => {
+            return <option onChange={this.props.onChange} dbid={current._id} className='option' key={index}>{current.component}</option>
         })
 
 
