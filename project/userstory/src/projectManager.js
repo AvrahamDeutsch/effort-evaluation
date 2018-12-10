@@ -14,7 +14,9 @@ class ProjectManager extends Component {
         super(props);
 
         this.state = {
-            projectsArray: ['project1', 'project2', 'project3', 'project4'],
+            // projectsArray: ['project1', 'project2', 'project3', 'project4'],
+            currentProject: this.props.projectId,
+            projectsArray: [],
             userStories: [
                 'as a teacher i want a huge display',
                 'as a teacher i want a chat',
@@ -27,35 +29,40 @@ class ProjectManager extends Component {
                 // 'Cluster leader UI', 
                 // 'Backend',
             ],
-           
+
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+
+        await axios.get(`http://10.2.1.106:5000/api/project/allProjects`)
+            .then((response) => {
+                console.log(response.data);
+                var array = [];
+                var data = response.data;
+                data.map(elm => array.push(elm))
+                this.setState({ projectsArray: array });
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
 
 
-        // store.dispatch({ type: 'GET_ALL_DATA' })
-
-
-
-        // axios.get(`http://10.2.1.106:8080/app/allStories/:projectID`)
-        // .then((response) => {
-        //     console.log(response.data);
-        //     var key = 0;
-        //     var array = [];
-        //     array = response.data.arrayResult.slice();
-
-        //     this.setState(
-        //         {
-        //             renderedData: array.map(current => {
-        //                 return (<option onChange={this.props.onChange} className='option' key={key++}>{current}</option>)
+        // await axios.get(`http://10.2.1.106:5000/api/userStory/allStories/5bfbe1aed9c0d0126cc86821`)
+        //     .then((response) => {
+        //         console.log(response.data);
+        //         var data = response.data.subjects
+        //         var array = [];
+        //        data.map(subjects => {
+        //             subjects.requirements.map(elm => {
+        //                 array.push(elm.userStory)
         //             })
-        //         });
-        // })
-        // .catch(function (error) {
-        //     console.log(error);
-        // });
-
+        //         })
+        //         this.setState({ userStories: array });
+        //     })
+        //     .catch(function (error) {
+        //         console.log(error);
+        //     });
     }
 
     createNewTaskContainer() {
@@ -66,9 +73,8 @@ class ProjectManager extends Component {
         this.setState({ TaskContainerNamesArray: copy })
     }
 
-    createNewProject() {
-        store.dispatch({ type: 'CREATE_NEW_PROJECT', payload:{projectName:this.state.newProjectName, projectID:2}})
-
+    projectChangede(e) {
+        this.setState({ currentProject: e })
     }
 
     render() {
@@ -78,15 +84,15 @@ class ProjectManager extends Component {
         });
 
 
-
         return (
             <div className="ProjectManager">
                 <Row>
-                    <Col md='3'><SelectProject projectarray={this.state.projectsArray} /></Col>
+                    <Col md='3'><SelectProject projectarray={this.state.projectsArray}
+                        onChange={(e) => this.projectChangede(e.target.value)} /></Col>
                     <Col md='3'><Button onClick={() => this.createNewTaskContainer()} >Create task-container</Button></Col>
                     <Col md='6'>
                         <Row>
-                            <Col> <Input placeholder='new project name...' onChange={(i) => this.state.newProjectName = i.target.value} /></Col>
+                            <Col> <Input placeholder='new project name...' onChange={(i) => this.state.newProjectName = i} /></Col>
                             <Col><Button type="submit" onClick={() => this.createNewProject()} >Create new project</Button></Col>
                         </Row>
                     </Col>
@@ -95,7 +101,6 @@ class ProjectManager extends Component {
                 <div>
                     <br />
                     {renderedData}
-
                 </div>
 
 

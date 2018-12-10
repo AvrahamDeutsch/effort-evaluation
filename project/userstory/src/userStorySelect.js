@@ -12,8 +12,7 @@ class UserStorySelect extends Component {
     }
     
     ComponentDidMount() {
-        
-
+       
 
 }
 
@@ -22,8 +21,11 @@ class UserStorySelect extends Component {
         var key = 0;
         var array = this.props.userStories.slice();
         var renderedData = array.map(current => {
+            // return <option onChange={this.props.onChange} dbid={current._id} className='option' key={key++}>{current.trim()}</option>
             return <option onChange={this.props.onChange} dbid={current._id} className='option' key={key++}>{current.trim()}</option>
         })
+
+
 
 
         return (

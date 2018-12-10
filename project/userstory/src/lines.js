@@ -29,12 +29,19 @@ class Lines extends Component {
         console.log('numberOfTasks: ', numberOfTasks);
         var linesArray = new Array(numberOfTasks);
         for(var i=0; i<numberOfTasks; i++){
-            linesArray[i] = <Line taskContainerUserStory={this.props.taskContainerUserStory} userStories={this.props.userStories} 
+            linesArray[i] = <Line 
+                            taskContainerUserStory={this.props.taskContainerUserStory} 
+                            userStories={this.props.userStories} 
                             arrayResult={this.props.arrayResult}  
-                            lineIndex={i} complexity={this.props.complexArray[i]} risk={this.props.riskArray[i]} onClick={this.props.onClick} 
+                            lineIndex={i} 
+                            complexity={this.props.complexArray[i]} 
+                            risk={this.props.riskArray[i]} 
+                            onClick={this.props.onClick} 
                             riskClickHandler={this.props.riskClickHandler}
-                            learningDaysChange={this.props.learningDaysChange} learningDaysNumber={this.props.learningDaysArray[i]}
-                            onChange={this.props.onChange} taskUserStorySelectChange={this.props.taskUserStorySelectChange}
+                            learningDaysChange={this.props.learningDaysChange} 
+                            learningDaysNumber={this.props.learningDaysArray[i]}
+                            onChange={this.props.onChange} 
+                            taskUserStorySelectChange={this.props.taskUserStorySelectChange}
                             taskNameChange={this.props.taskNameChange}/>;             
         }
         return (

@@ -26,6 +26,6 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ],
-  "proxy": "http://10.2.1.106:8080"
+  ]
+ 
 }

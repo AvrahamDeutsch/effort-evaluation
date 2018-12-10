@@ -9,14 +9,13 @@ class SelectProject extends Component {
 
     render() {
         var renderedData = [];
-        var key = -1;
         var projectArray = this.props.projectarray;
-        renderedData = projectArray.map(current => {
-            return <option className='option' key={key++}>{current}</option>
+        renderedData = projectArray.map((current, index) => {
+            return <option className='option' id={current.projectId} key={index}>{current.projectName}</option>
         });
 
         return (
-            <Input type='select' className="selectProject">
+            <Input  type='select' className="selectProject" onChange={this.props.onChange}>
                 {renderedData}
             </Input>
         );
