@@ -6,21 +6,21 @@ import Line from './line';
 class Lines extends Component {
     constructor(props) {
         super(props)
-        // this.state = {
-        //     linesArray: [this.props.numberOfTasks],
-        // };
+        this.state = {
+            linesArray: [this.props.numberOfTasks],
+        };
     }
 
     componentDidMount() {
-        // var numberOfTasks = this.props.numberOfTasks;
-        // console.log('numberOfTasks: ', numberOfTasks);
+        var numberOfTasks = this.props.numberOfTasks;
+        console.log('numberOfTasks: ', numberOfTasks);
 
-        // var linesArray = new Array(numberOfTasks);
-        // linesArray.forEach(element => {
-        //     element = 1;
-        // });
+        var linesArray = new Array(numberOfTasks);
+        linesArray.forEach(element => {
+            element = 1;
+        });
 
-        // this.setState({linesArray : linesArray});
+        this.setState({linesArray : linesArray});
     }
 
 
@@ -42,7 +42,9 @@ class Lines extends Component {
                             learningDaysNumber={this.props.learningDaysArray[i]}
                             onChange={this.props.onChange} 
                             taskUserStorySelectChange={this.props.taskUserStorySelectChange}
-                            taskNameChange={this.props.taskNameChange}/>;             
+                            taskNameChange={this.props.taskNameChange}
+                            detailsHandler={this.props.detailsHandler}             
+                            assumptionsHandler={this.props.assumptionsHandler}/>;             
         }
         return (
             <div className="Lines">

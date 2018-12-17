@@ -25,6 +25,8 @@ class UserStorySelect extends Component {
             <Input type="select" onChange={this.props.onChange} className='select floatLeft userStorySelect' >
             <option selected disabled hidden className='option'>Choose user story</option>
                 {renderedData}
+                
+                
             </Input>
         );
     }

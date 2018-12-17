@@ -82,12 +82,12 @@ class Line extends Component {
                     <Row>
                         <Col sm='6' md='4'>
                             <FormGroup>
-                                <Input type="textarea" name="text" id="exampleText" placeholder='DETAILS' />
+                                <Input type="textarea" name="text" id="exampleText" placeholder='DETAILS' lineindex={this.props.lineIndex} onBlur={this.props.detailsHandler}/>
                             </FormGroup>
                         </Col>
                         <Col sm='6' md='4'>
                             <FormGroup>
-                                <Input type="textarea" name="text" id="exampleText" placeholder='ASSUMPTIONS' />
+                                <Input type="textarea" name="text" id="exampleText" placeholder='ASSUMPTIONS' lineindex={this.props.lineIndex} onBlur={this.props.assumptionsHandler}  />
                             </FormGroup>
                         </Col>
                         <Col  sm='6' md='4'>

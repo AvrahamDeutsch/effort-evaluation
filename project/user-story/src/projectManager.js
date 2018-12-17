@@ -34,13 +34,8 @@ class ProjectManager extends Component {
     }
 
     async componentDidMount() {
-
-        
-        
-        
         await axios.get(`http://10.2.2.114:5000/api/project/allProjects`)
         .then((response) => {
-            console.log(response.data);
             var array = [];
             var data = response.data;
             data.map(elm => array.push(elm))
@@ -49,8 +44,6 @@ class ProjectManager extends Component {
         .catch(function (error) {
             console.log(error);
         });
-        
-        
         await this.getAllDataSpecificProject(this.state.currentProject)
     }
         
@@ -60,7 +53,9 @@ class ProjectManager extends Component {
             axios.get(`http://10.2.2.114:5000/api/userStory/allStories/${currentProject}`)
             .then((response) => {
                 var arr = []
+                
                 var data = response.data;
+                console.log(data);
                 data.subjects.map((subject, index)=>{
                     subject.requirements.map(story=>{
                          arr.push(story.userStory)
@@ -91,7 +86,8 @@ class ProjectManager extends Component {
         
         render() {
             var renderedData = this.state.TaskContainerNamesArray.map((current, index) => {
-                return <TaskContainer userStories={this.state.userStories} taskContainerName={current} key={index}></TaskContainer>
+                return <TaskContainer currentProject={this.state.currentProject} userStories={this.state.userStories} taskContainerName={current} key={index}></TaskContainer>
+                // return <TaskContainer taskContainerName={current} key={index}></TaskContainer>
             });
             
             

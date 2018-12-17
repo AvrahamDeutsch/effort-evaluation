@@ -101,7 +101,7 @@
 //                 console.log('learningDaysArray ', learningDaysArray);
 //                 console.log('tasksUserStoryArray', tasksUserStoryArray);
 //                 console.log('taskNamesArray', taskNamesArray);
-                
+
 //                 this.setState({ learningDaysArray: learningDaysArray });
 //                 this.setState({ complexArray: complexArray });
 //                 this.setState({ riskArray: riskArray });
@@ -302,7 +302,7 @@ import Lines from './lines';
 import CategorySelect from './categorySelect';
 import axios from 'axios'
 import UserStorySelect from './userStorySelect';
-import { Button, Input,  Row, Col } from 'reactstrap';
+import { Button, Input, Row, Col } from 'reactstrap';
 
 
 
@@ -314,6 +314,7 @@ class TaskContainer extends Component {
 
             //---by ad ----//
             currentCategory: '',
+            currentProject: this.props.currentProject,
             //-------end-------//
             arrayResult: [],
             taskContainerName: '',
@@ -321,6 +322,7 @@ class TaskContainer extends Component {
             numberOfTasks: 1,
             totalWorkNumber: 0,
             catAndCompFilteredObject: {},
+
             taskName: '',
             taskNamesArray: [],
             complexArray: [0],
@@ -329,18 +331,51 @@ class TaskContainer extends Component {
             learningDays: 0,
             tasksUserStoryArray: [''],
             taskContainerUserStory: '',
+            detailsArray: [],
+            assumptionsArray: [],
+
             taskMode: false
 
         };
     }
 
+   async save() {
+console.log('current---------""',this.state.currentProject);
+
+
+        var taskContainer = await {
+            containerName: this.state.taskContainerName,
+            category: this.state.currentCategory,
+            days: this.getTotalWeightedEffort(),
+            tasks: [],
+            milestoneName: this.state.mileStoneNumber
+        }
+
+        for (let i = 0; i < this.state.numberOfTasks; i++) {
+            taskContainer.tasks.push({
+                taskName: this.state.taskNamesArray[i],
+                days: ((this.state.complexArray[i] + this.state.learningDaysArray[i]) * this.state.riskArray[i]).toFixed(1),
+                milestoneName: this.state.mileStoneNumber,
+                complexity: this.state.complexArray[i],
+                details: this.state.detailsArray[i],
+                assumptions: this.state.assumptionsArray[i]
+            })
+        }
+        console.log(taskContainer);
+        await axios.put(`http://10.2.2.114:5000/api/effort/${this.state.currentProject}/${this.state.mileStoneNumber}`, taskContainer)
+             .then((response) => {
+                 console.log(response);
+             })
+             .catch(function (error) {
+                 console.log(error);
+             });
+
+    }
 
 
     taskContainerNameChange = (e) => {
         e.persist();
         var taskContainerName = e.target.value;
-        // console.log(taskContainerName);
-
         this.setState({ taskContainerName: taskContainerName });
     }
 
@@ -426,10 +461,7 @@ class TaskContainer extends Component {
     taskNameChange = (e) => {
         e.persist();
         var taskName = e.target.value;
-        console.log('taskName:', taskName);
         var lineIndex = e.target.attributes.lineindex.nodeValue;
-        console.log('lineIndex', lineIndex);
-
         var taskNamesArray = this.state.taskNamesArray.slice();
         taskNamesArray[lineIndex] = taskName;
         this.setState({ taskNamesArray: taskNamesArray });
@@ -456,6 +488,8 @@ class TaskContainer extends Component {
     }
 
     complexityClickHandler = (e) => {
+       
+        
         e.persist();
         var value = e.target.value;
         console.log('complexity :', value);
@@ -509,15 +543,17 @@ class TaskContainer extends Component {
         for (var i = 0; i < complexArray.length; i++) {
             weightedEffortArray[i] = (learningDaysArray[i] + complexArray[i]) * riskArray[i];      // calculate each task's weighted effort
         }
-        return weightedEffortArray.reduce((total, currValue, initialValue) => total + currValue);    // calculate whole task container weighted effort
+        var total = weightedEffortArray.reduce((total, currValue, initialValue) => total + currValue).toFixed(1);    // calculate whole task container weighted effort
+
+        return total
     }
 
 
     componentChange = (e) => {
-        // e.persist();
+        e.persist();
         var value = e.target.value;
         console.log(value);
-        var arrayResult = this.state.arrayResult;
+        var arrayResult = this.state.arrayResult.slice();
         var catAndCompFilteredArray = arrayResult.filter(current => current.component === value);   // we need to find a document with category={category}&component={component}  and we know that category is same for each taskcontainer
         console.log(catAndCompFilteredArray);
         var catAndCompFilteredObject = catAndCompFilteredArray[0];
@@ -533,14 +569,14 @@ class TaskContainer extends Component {
         var tasksUserStoryArray = this.state.tasksUserStoryArray.slice();
         for (let i = 0; i < tasksUserStoryArray.length; i++) {
             tasksUserStoryArray[i] = taskContainerUserStory;
-            console.log(i);
-            
+
         }
         this.setState({ tasksUserStoryArray: tasksUserStoryArray });
     }
 
     taskUserStorySelectChange = (e) => {
         e.persist();
+
         var taskUserStory = e.target.value;
         var lineIndex = e.target.attributes.lineindex.nodeValue;
 
@@ -550,11 +586,28 @@ class TaskContainer extends Component {
         var tasksUserStoryArray = this.state.tasksUserStoryArray.slice();
         tasksUserStoryArray[lineIndex] = taskUserStory;
         this.setState({ tasksUserStoryArray: tasksUserStoryArray });
-        console.log(tasksUserStoryArray, "tasksUserStoryArray");
     }
+
+    detailsHandler = (e) => {
+        e.persist()
+        var lineIndex = e.target.attributes.lineindex.nodeValue;
+        var arr = this.state.detailsArray.slice()
+        arr[lineIndex] = e.target.value;
+        this.setState({ detailsArray: arr });
+    }
+   
+    assumptionsHandler = (e) => {
+        e.persist()
+        var lineIndex = e.target.attributes.lineindex.nodeValue;
+        var arr = this.state.assumptionsArray.slice()
+        arr[lineIndex] = e.target.value;
+        this.setState({ assumptionsArray: arr });
+    }
+
     isOpen = () => {
         this.setState({ taskMode: !this.state.taskMode })
     }
+
 
     render() {
         return (
@@ -604,37 +657,40 @@ class TaskContainer extends Component {
                                 <b> Total W.E.</b>
                             </Col>
                         </Row>
-                        <Col><b>{(this.getTotalWeightedEffort()).toFixed(1)} {/*sum of all tasks weightedEffort*/}</b></Col>
+                        <Col><b>{this.getTotalWeightedEffort()} {/*sum of all tasks weightedEffort*/}</b></Col>
                     </Col>
                 </Row>
                 <Row style={{ width: '90%', margin: '5px', marginLeft: '0px' }}>
                     <Col>
                         <Button onClick={() => this.isOpen()}>Tasks</Button>
 
-                        {this.state.taskMode ? <Lines 
-                            taskContainerUserStory={this.state.taskContainerUserStory} 
+                        {this.state.taskMode ? <Lines
+                            taskContainerUserStory={this.state.taskContainerUserStory}
                             numberOfTasks={this.state.numberOfTasks}
                             arrayResult={this.state.arrayResult}
-                            complexArray={this.state.complexArray} 
-                            riskArray={this.state.riskArray} 
+                            complexArray={this.state.complexArray}
+                            riskArray={this.state.riskArray}
                             onClick={this.complexityClickHandler}
                             riskClickHandler={this.riskClickHandler}
-                            learningDaysChange={this.learningDaysChange} 
+                            learningDaysChange={this.learningDaysChange}
                             learningDaysArray={this.state.learningDaysArray}
-                            onChange={this.componentChange} 
+                            onChange={this.componentChange}
                             taskUserStorySelectChange={this.taskUserStorySelectChange}
-                            userStories={this.props.userStories} 
-                            taskNameChange={this.taskNameChange} />
-                             : null}
+                            userStories={this.props.userStories}
+                            taskNameChange={this.taskNameChange}
+                            // details={this.detailsHandler}
+                            detailsHandler={ this.detailsHandler}
+                            assumptionsHandler={this.assumptionsHandler}
+                         />
+                            
+                            : null}
 
                     </Col>
                 </Row>
                 <Row>
                     <Col>
                         {/* {this.state.taskMode ? <Button onClick={() => (this.props.dispatch({ type: "SAVE_TASK_CONTAINER_DATA", payload: this.state }))}>Save</Button> : null} */}
-                        <Button onClick={()=>console.log(this.state)
-                        }>Save</Button> 
-
+                        <Button onClick={() => this.save()}>Save</Button>
                     </Col>
                 </Row>
 
@@ -680,7 +736,7 @@ export default TaskContainer;
 //           </Row>
 //       </div> 
 //       <Row>
-         
+
 //           <Lines taskContainerUserStory={this.state.taskContainerUserStory} numberOfTasks={this.state.numberOfTasks}
 //               arrayResult={this.state.arrayResult}
 //               complexArray={this.state.complexArray} riskArray={this.state.riskArray} onClick={this.complexityClickHandler}
