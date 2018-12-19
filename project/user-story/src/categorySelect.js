@@ -29,7 +29,7 @@ class CategorySelect extends Component {
                 this.setState(
                     {
                         renderedData: array.map((current, index) => {
-                            return (<option onChange={this.props.onChange} className='option' key={index}>{current}</option>)
+                            return (<option /*onChange={this.props.onChange}*/ className='option' key={index}>{current}</option>)
                         })
                     });
             })
@@ -43,7 +43,8 @@ class CategorySelect extends Component {
     render() {
         return (
         <Input type="select" onChange={this.props.onChange} className='select'>
-                <option selected disabled hidden className='option'>Select Category</option>
+                {/* <option disabled hidden className='option'>Select Category</option> */}
+                <option  hidden className='option'>Select Category</option>
                 {this.state.renderedData}
             </Input>
         );
