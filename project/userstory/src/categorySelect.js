@@ -20,7 +20,7 @@ class CategorySelect extends Component {
 
    componentDidMount() {
     
-        axios.get(`http://10.2.1.106:8080/app/category_value_list`)
+        axios.get(`http://10.2.2.114:8080/app/category_value_list`)
             .then((response) => {
                 console.log(response.data);
                 var key = 0;
