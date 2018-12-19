@@ -37,8 +37,6 @@ class TaskContainer extends Component {
         };
     }
 
-
-
     taskContainerNameChange = (e) => {
         e.persist();
         var taskContainerName = e.target.value;
@@ -59,7 +57,7 @@ class TaskContainer extends Component {
 
         e.persist();
         var value = e.target.value;
-        axios.get(`http://10.2.1.106:8080/app/find_category/?category=${value}`)
+        axios.get(`http://10.2.2.114:8080/app/find_category/?category=${value}`)
             .then(response => {
                 console.log(response.data);
                 this.setState({ arrayResult: response.data.arrayResult });
@@ -353,50 +351,4 @@ class TaskContainer extends Component {
         );
     }
 }
-// export default connect(store => store)(TaskContainer);
 export default TaskContainer;
-
-
-{/* <div className="TaskContainer">
-      <div className="TaskContainerVisible">
-          <Row >
-              <Col md='4' >
-                  <div className='TaskContainerVisibleText'><b> Task Container Name:</b></div>
-                  <input style={{ fontSize: '20px' }}  onChange={this.taskContainerNameChange} type="text" defaultValue={this.props.taskContainerName}></input>
-              </Col>
-              <Col md='3' >
-                  <div className='TaskContainerVisibleText'>Number of tasks:</div>
-                  <input className='TaskContainerVisibleText' onChange={this.numberOfTasksChange} style={{ fontSize: '20px', width: '40px', paddingLeft: '3px' }} type="number" min='1' max='30' defaultValue='1'></input>
-              </Col>
-              <Col md='2' className='width floatLeft'>
-                  <div className='TaskContainerVisibleText'>Milestone:</div>
-                  <input className='TaskContainerVisibleText' onChange={this.mileStoneChange} style={{ fontSize: '20px', width: '40px', paddingLeft: '3px' }} type="number" min='0' max='5' defaultValue='0'></input>
-              </Col>
-              <Col md='3'>
-                  <div className='TaskContainerVisibleText categoryLable'>Category:</div>
-                  <CategorySelect onChange={this.categoryChange} />
-              </Col>
-          </Row>
-          <Row>
-              <Col md='6' >
-                  <div className='TaskContainerVisibleText userStoryLable'>User story:</div>
-                  <UserStorySelect className='floatLeft' userStories={this.props.userStories} onChange={this.userStorySelectChange} /> 
-              </Col>
-          <Col md='6'>
-              <p className='TaskContainerVisibleText verticalMiddle'>Total W.E.: </p>
-              <p className='totalWorkNumber verticalMiddle'>{(this.getTotalWeightedEffort()).toFixed(1)} {}</p>
-          </Col>
-          </Row>
-      </div> 
-      <Row>
-         
-          <Lines taskContainerUserStory={this.state.taskContainerUserStory} numberOfTasks={this.state.numberOfTasks}
-              arrayResult={this.state.arrayResult}
-              complexArray={this.state.complexArray} riskArray={this.state.riskArray} onClick={this.complexityClickHandler}
-              riskClickHandler={this.riskClickHandler}
-              learningDaysChange={this.learningDaysChange} learningDaysArray={this.state.learningDaysArray}
-              onChange={this.componentChange} taskUserStorySelectChange={this.taskUserStorySelectChange}
-              userStories={this.props.userStories} taskNameChange={this.taskNameChange} />
-      </Row>
-  </div>  */}
-
