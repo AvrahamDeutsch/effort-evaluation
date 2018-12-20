@@ -44,7 +44,8 @@ class Lines extends Component {
                             taskUserStorySelectChange={this.props.taskUserStorySelectChange}
                             taskNameChange={this.props.taskNameChange}
                             detailsHandler={this.props.detailsHandler}             
-                            assumptionsHandler={this.props.assumptionsHandler}/>;             
+                            assumptionsHandler={this.props.assumptionsHandler}
+                            total={this.props.total}/>;             
         }
         return (
             <div className="Lines">

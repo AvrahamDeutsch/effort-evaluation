@@ -91,7 +91,7 @@ class Line extends Component {
                             </FormGroup>
                         </Col>
                         <Col  sm='6' md='4'>
-                            <div><b>w.e. : {taskWeightedEffort}</b></div>
+                            <div><b>w.e. : {this.props.total}</b></div>
 
                         </Col>
 
