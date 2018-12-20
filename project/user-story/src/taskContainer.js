@@ -24,7 +24,7 @@ class Container extends Component {
             totalWorkNumber: 0,
             taskContainerUserStory: '',
             tasksUserStoryArray: [''],
-            tasksArray: [],
+            tasksArray: this.props.tasksArr,
 
             task: {
                 taskName: '',
@@ -42,6 +42,7 @@ class Container extends Component {
         }
     }
 
+    
     taskContainerNameChange = (e) => {
         e.persist();
         var taskContainerName = e.target.value;

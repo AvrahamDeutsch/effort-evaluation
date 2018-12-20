@@ -10,6 +10,7 @@ import store from './store/store.js'
 
 class ProjectManager extends Component {
 
+
     constructor(props) {
         super(props);
 
@@ -22,40 +23,52 @@ class ProjectManager extends Component {
                 'as a teacher i want a chat',
                 'as a teacher i want a automatic mark grader grader grader grader grader grader grader grader grader grader grader grader grader',
             ],
+            containers: [],
             TaskContainerNamesArray: [
-                'Student UI',
-                // 'Teacher UI',
-                // 'Admin UI',
-                // 'Cluster leader UI',
-                // 'Backend',
+                
             ],
-            category:null,
+            category: null,
             container: {
                 name: null,
                 numberOfTasks: null,
                 mileStone: null,
                 category: null,
                 userStory: null,
-                tasks:[]
+                tasks: []
             }
 
 
 
         }
     }
-
+ a=[]
     async componentDidMount() {
         await axios.get(`http://10.2.2.114:5000/api/project/allProjects`)
             .then((response) => {
                 var array = [];
                 var data = response.data;
+                console.log('data', data);
+
                 data.map(elm => array.push(elm))
                 this.setState({ projectsArray: array });
+                console.log('state', this.state.projectsArray);
+
             })
             .catch(function (error) {
                 console.log(error);
             });
         await this.getAllDataSpecificProject(this.state.currentProject)
+
+        await axios.get(`http://10.2.2.114:5000/api/effort/allData/${this.state.currentProject}`)
+            .then((response) => {
+                console.log('response', response);
+                this.setState({ containers: response.data })
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+
     }
 
 
@@ -92,15 +105,38 @@ class ProjectManager extends Component {
     projectChangede(e) {
         this.setState({ currentProject: e })
         this.getAllDataSpecificProject(e)
+        axios.get(`http://10.2.2.114:5000/api/effort/allData/${e}`)
+            .then((response) => {
+                console.log('response', response);
+                this.setState({ containers: response.data })
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+    }
+    containerSelect(e){
 
     }
 
     render() {
-        var renderedData = this.state.TaskContainerNamesArray.map((current, index) => {
-            return <TaskContainer currentProject={this.state.currentProject} userStories={this.state.userStories} taskContainerName={current} key={index}></TaskContainer>
-            // return <TaskContainer taskContainerName={current} key={index}></TaskContainer>
-        });
 
+        var arr = this.state.containers.slice();
+        var containersName = []
+        arr.map((current, index) => {
+            current.containers.map((containers, index) => {
+                console.log(containers);
+                containersName.push(
+                    <TaskContainer
+                    currentProject={this.state.currentProject}
+                    userStories={this.state.userStories}
+                    taskContainerName={containers.containerName}
+                    key={index}>
+                </TaskContainer>)
+            
+            })
+        });
+       
 
         return (
             <div className="ProjectManager">
@@ -113,7 +149,7 @@ class ProjectManager extends Component {
                         <Row>
                             <Col> <select onChange={(e) => this.containerSelect(e.target.value)}>
                                 <option hidden >select container</option>
-                                {this.state.TaskContainerNamesArray.map((con, index) => {
+                                {this.a.map((con, index) => {
                                     return <option key={index}>{con}</option>
                                 })}
                             </select> </Col>
@@ -128,7 +164,11 @@ class ProjectManager extends Component {
 
                 <div>
                     <br />
-                    {renderedData}
+                    {/* {this.state.containers.map((current, index)=>{
+                    
+                        return <TaskContainer currentProject={this.state.currentProject} userStories={this.state.userStories} taskContainerName={current} key={index}></TaskContainer>
+                    })} */}
+                    {containersName}
                 </div>
 
 
